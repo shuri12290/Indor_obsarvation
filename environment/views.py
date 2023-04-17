@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView, ListView
+from .models import RoomEnvironment
 
-# Create your views here.
+class CurrentStatusView(TemplateView):
+    model = RoomEnvironment
+    
+    
+class MonitorStatusView(ListView):
+    model = RoomEnvironment
