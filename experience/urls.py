@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import Experience
+from .views import ExperienceView
 
 urlpatterns = [
-    path('', Experience.as_view(), name='experience'),
+    path('', ExperienceView.as_view(), name='experience'),
 ]
