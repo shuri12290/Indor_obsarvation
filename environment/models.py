@@ -17,6 +17,7 @@ class RoomEnvironment(models.Model):
     si_value = models.FloatField()
     pga = models.FloatField()
     seismic_intensity = models.FloatField()
+    place = models.CharField(max_length=50,null=False,blank=False)
     
     def __str__(self):
         return self.measure_time
