@@ -22,9 +22,12 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Experience sensor</a></li>
+            {%  if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+            {% endif %}
+            <li class="nav-item"><a href="{% url 'experience' %}" class="nav-link">Experience sensor</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Current status</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Monitor</a></li>
           </ul>
@@ -34,6 +37,5 @@
   </div>
   {% block content%}
   {% endblock %}
-  <h1 class="my-5 text-center">ほげ</h1>
 </body>
 </html>
