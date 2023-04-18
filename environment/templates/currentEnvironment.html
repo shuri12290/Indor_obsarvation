@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}現在の状態{% endblock %}
+
+{% block content %}
+<main>
+    <header class="section pt-5 pb-5">
+        <div class="container">
+            <h1 class="title">現在の状態</h1>
+        </div>
+    </header>
+    <div class="section pt-3">
+        <div class="container">
+            <div class="columns mt-5">
+                <div class="column">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                <span class="icon"><i class="far fa-clock mr-2"></i></span>
+                                計測時刻
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <span id="timestamp" class="is-size-3">{{ environment.measure_time }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                <span class="icon"><i class="fas fa-temperature-high mr-2"></i></span>
+                                温度
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                            <span id="temperature" class="is-size-3">{{ environment.temperature }}</span> ℃
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            <span class="icon"><i class="fas fa-tint mr-2"></i></span>
+                            湿度
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <span id="humidity" class="is-size-3">{{ environment.relative_humidity }}</span> %RH
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            <span class="icon"><i class="fas fa-sun mr-2"></i></span>
+                            照度
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <span id="anbient_light" class="is-size-3">{{ environment.ambient_light }}</span> lx
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    <span class="icon"><i class="fas fa-cloud-sun-rain mr-2"></i></span>
+                    大気圧
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                    <span id="pressure" class="is-size-3">{{ environment.barometric_pressure }}</span> hPa
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="columns">
+            <div class="column">
+                <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    <span class="icon"><i class="fas fa-volume-up mr-2"></i></span>
+                    騒音
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                    <span id="noise" class="is-size-3">{{ environment.sound_noise }}</span> dB
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    <span class="icon"><i class="fas fa-air-freshener mr-2"></i></span>
+                    eTVOC
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                    <span id="etvoc" class="is-size-3">{{ environment.etvoc }}</span> ppb
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    <span class="icon"><i class="fas fa-head-side-cough mr-2"></i></span>
+                    eCO2
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                    <span id="eco2" class="is-size-3">{{ environment.eco2 }}</span> ppm
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    <span class="icon"><i class="far fa-grin-beam-sweat mr-2"></i></span>
+                    不快指数
+                    </p>
+                </header>
+                <div id="discomfort_index_cont" class="card-content has-background-primary-light">
+                    <div class="content">
+                    <span id="discomfort_index" class="is-size-3">{{ environment.discomfort_index }}</span>
+                    <small id="discomfort_index_desc"></small>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    <span class="icon"><i class="fas fa-sun mr-2"></i></span>
+                    熱中症警戒度
+                    </p>
+                </header>
+                <div id="heat_stroke_cont" class="card-content has-background-primary-light">
+                    <div class="content">
+                    <span id="heat_stroke" class="is-size-3">{{ environment.heat_stroke }}</span>
+                    <small id="heat_stroke_desc"></small>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/SerialCommunication.css' %}">
+{% endblock %}
