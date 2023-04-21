@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block title %}Monitor{% endblock %}
 
 {% block content %}
+<form>
+    <h3>Start day</h3>
+    {{ search_form.start_date | add_class:"form-control" }}
+    <h3>End date</h3>
+     {{ search_form.end_date | add_class:"form-control"}}
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+{% autoescape off %}
+{{ temperature_graph }}
+{{  humidity_graph  }}
+{{ light_graph }}
+{{ pressure_graph }}
+{{ noise_graph }}
+{{ etvoc_graph }}
+{{ eco2_graph }}
+{{ discomfort_graph }}
+{{ heat_stroke_graph }}
+{% endautoescape %}
 
 {% endblock %}
