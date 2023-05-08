@@ -16,7 +16,9 @@ class CurrentStatusView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = RoomEnvironment.objects.latest('measure_time')
+        measure_time = queryset.measure_time - datetime.timedelta(hours=9)
         context['environment'] = queryset
+        context['measure_time'] = measure_time
         return context
 
 
@@ -33,7 +35,7 @@ class MonitorStatusView(ListView):
         if (len(form_start_date) == 0) and (len(form_end_date) == 0):
             query_set = query_set.filter(
                 measure_time__range=[make_aware(datetime.datetime.now()-timedelta(days=1)),
-                                     make_aware(datetime.datetime.now())])
+                                    make_aware(datetime.datetime.now()+timedelta(days=1))])
             return query_set
 
         if form.is_valid():
