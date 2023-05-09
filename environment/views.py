@@ -54,8 +54,7 @@ class MonitorStatusView(ListView):
                                     'barometric_pressure', 'sound_noise', 'etvoc', 'eco2',
                                     'discomfort_index', 'heat_stroke', 'place'])
         
-        for index, item in df.iterrows():
-            item['measure_time'] = item['measure_time']-timedelta(hours=9)
+        df['measure_time'] = df['measure_time'] - timedelta(hours=9)
             
         temperature_plot = px.line(df, x="measure_time", y='temperature', color='place')
         temperature_plot_fig = plot(temperature_plot, output_type='div', include_plotlyjs=False)
