@@ -16,9 +16,10 @@ class CurrentStatusView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = RoomEnvironment.objects.latest('measure_time')
-        measure_time = queryset.measure_time - datetime.timedelta(hours=9)
+        measure_time = queryset.measure_time - timedelta(hours=9)
+        measure_time_str = measure_time.strftime("%Y年%m月%d日%H時%M分")
         context['environment'] = queryset
-        context['measure_time'] = measure_time
+        context['measure_time'] = measure_time_str
         return context
 
 
@@ -34,8 +35,8 @@ class MonitorStatusView(ListView):
         form_end_date = self.request.GET.getlist('end_date')
         if (len(form_start_date) == 0) and (len(form_end_date) == 0):
             query_set = query_set.filter(
-                measure_time__range=[make_aware(datetime.datetime.now()-timedelta(days=1)),
-                                    make_aware(datetime.datetime.now()+timedelta(days=1))])
+                measure_time__range=[make_aware(datetime.datetime.now()-timedelta(days=1)-timedelta(hours=9)),
+                                    make_aware(datetime.datetime.now()+timedelta(days=1)-timedelta(hours=9))])
             return query_set
 
         if form.is_valid():
@@ -43,7 +44,6 @@ class MonitorStatusView(ListView):
             end_date = form.cleaned_data.get('end_date')
             if start_date and end_date:
                 query_set = query_set.filter(measure_time__range=[start_date, end_date])
-
         return query_set
 
     def get_context_data(self, **kwargs):
@@ -53,7 +53,10 @@ class MonitorStatusView(ListView):
                         fieldnames=['measure_time', 'temperature', 'relative_humidity', 'ambient_light',
                                     'barometric_pressure', 'sound_noise', 'etvoc', 'eco2',
                                     'discomfort_index', 'heat_stroke', 'place'])
-
+        
+        for index, item in df.iterrows():
+            item['measure_time'] = item['measure_time']-timedelta(hours=9)
+            
         temperature_plot = px.line(df, x="measure_time", y='temperature', color='place')
         temperature_plot_fig = plot(temperature_plot, output_type='div', include_plotlyjs=False)
         context['temperature_graph'] = temperature_plot_fig
